@@ -72,15 +72,18 @@ buttons.forEach((button) => {
 })
 
 function round(e) {
-    const button = e.target;
-    // button now holds node of what button was pressed
-    const choice = button.textContent.toLowerCase();
-    const computer = getComputerChoice();
-    const outcome = playRound(choice, computer);
-
     const playerScore = document.querySelector('#player .score');
     const enemyScore = document.querySelector('#enemy .score');
     const outcomeDiv = document.querySelector('#score #outcome');
+    if (playerScore.textContent == 5 || enemyScore.textContent == 5) return;
+    const button = e.target;
+    // Button now holds DOM node of what button was pressed
+
+    const choice = button.textContent;
+    const computer = getComputerChoice();
+    const outcome = playRound(choice, computer);
+
+    
 
     // Update Score Board
     if (outcome === "win") {
@@ -97,8 +100,12 @@ function round(e) {
     // If there is a winner, we need to add a popup!
     if (playerScore.textContent == 5) {
         outcomeDiv.textContent = "Let's go!!! You won!!!";
+        playerScore.style.cssText = "font-weight: bolder; color: green"
+        enemyScore.style.cssText = "font-weight: bolder; color: red"
     } else if (enemyScore.textContent == 5) {
         outcomeDiv.textContent = "I can't believe you lost...";
+        enemyScore.style.cssText = "font-weight: bolder; color: green"
+        playerScore.style.cssText = "font-weight: bolder; color: red"
     }
 
 
