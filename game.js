@@ -66,6 +66,18 @@ function announceOutcome (outcome, playerSelection, computerSelection) {
 }
 
 
+function restartGame(e) {
+    const playerScore = document.querySelector('#player .score');
+    const enemyScore = document.querySelector('#enemy .score');
+    const outcome = document.querySelector('#score #outcome p');
+    const restartButton = document.querySelector('#outcome button');
+
+    playerScore.textContent = 0;
+    enemyScore.textContent = 0;
+    outcome.textContent = "";
+    restartButton.remove();
+}
+
 const buttons = document.querySelectorAll("#buttons button");
 buttons.forEach((button) => {
     button.addEventListener('click', round)
@@ -74,7 +86,7 @@ buttons.forEach((button) => {
 function round(e) {
     const playerScore = document.querySelector('#player .score');
     const enemyScore = document.querySelector('#enemy .score');
-    const outcomeDiv = document.querySelector('#score #outcome');
+    const outcomeDiv = document.querySelector('#score #outcome p');
     if (playerScore.textContent == 5 || enemyScore.textContent == 5) return;
     const button = e.target;
     // Button now holds DOM node of what button was pressed
@@ -102,10 +114,29 @@ function round(e) {
         outcomeDiv.textContent = "Let's go!!! You won!!!";
         playerScore.style.cssText = "font-weight: bolder; color: green"
         enemyScore.style.cssText = "font-weight: bolder; color: red"
+
+        const restartButton = document.createElement('button');
+        restartButton.textContent = "Restart Game";
+        restartButton.classList.add("restart");
+        outcomeDiv.appendChild(restartButton);
+
+        const restart = document.querySelector('.restart');
+        restart.addEventListener('click', restartGame);
+
+
     } else if (enemyScore.textContent == 5) {
         outcomeDiv.textContent = "I can't believe you lost...";
         enemyScore.style.cssText = "font-weight: bolder; color: green"
         playerScore.style.cssText = "font-weight: bolder; color: red"
+
+        const restartButton = document.createElement('button');
+        restartButton.textContent = "Restart Game";
+        restartButton.classList.add("restart");
+        outcomeDiv.appendChild(restartButton);
+
+        const restart = document.querySelector('.restart');
+        restart.addEventListener('click', restartGame);
+
     }
 
 
