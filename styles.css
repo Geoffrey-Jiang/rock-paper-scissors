@@ -1,0 +1,21 @@
+body {
+    text-align: center;
+}
+
+#score {
+    padding: 0 160px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#player, #enemy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
