@@ -63,13 +63,29 @@ function announceOutcome (outcome, playerSelection, computerSelection) {
     }
 }
 
-
 function game () {
+    let playerWins = 0;
+    let computerWins = 0;
+
     for (let i = 0; i < 5; i++) {
         let player = prompt("What is your move?");
 
         const computer = getComputerChoice();
-        
-        console.log(announceOutcome(playRound(player, computer), player, computer));
+        const outcome = playRound(player, computer);
+        if (outcome === "win") {
+            playerWins++;
+        } else if (outcome === "loss") {
+            computerWins++;
+        }
+        console.log(announceOutcome(outcome, player, computer));
     }
+
+    if (playerWins > computerWins) {
+        console.log("Let's go!!! You won!!!");
+    } else if (playerWins === computerWins) {
+        console.log("Hmmm... You drew...");
+    } else {
+        console.log("I can't believe you lost...");
+    }
+
 }
