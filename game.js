@@ -60,6 +60,8 @@ function announceOutcome (outcome, playerSelection, computerSelection) {
             return "You lost! " + player + " loses to " + computer + "!";
         case "draw":
             return "Draw! " + player + " draws with " + computer + "!";
+        default:
+            return "Incorrect input...";
     }
 }
 
@@ -78,6 +80,7 @@ function game () {
             computerWins++;
         }
         console.log(announceOutcome(outcome, player, computer));
+        console.log("Current score: " + playerWins + " - " + computerWins);
     }
 
     if (playerWins > computerWins) {
