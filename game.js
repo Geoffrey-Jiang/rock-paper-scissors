@@ -65,6 +65,46 @@ function announceOutcome (outcome, playerSelection, computerSelection) {
     }
 }
 
+
+const buttons = document.querySelectorAll("#buttons button");
+buttons.forEach((button) => {
+    button.addEventListener('click', round)
+})
+
+function round(e) {
+    const button = e.target;
+    // button now holds node of what button was pressed
+    const choice = button.textContent.toLowerCase();
+    const computer = getComputerChoice();
+    const outcome = playRound(choice, computer);
+
+    const playerScore = document.querySelector('#player .score');
+    const enemyScore = document.querySelector('#enemy .score');
+    const outcomeDiv = document.querySelector('#score #outcome');
+
+    // Update Score Board
+    if (outcome === "win") {
+        playerScore.textContent = Number(playerScore.textContent) + 1;
+
+    } else if (outcome === "loss") {
+        enemyScore.textContent = Number(enemyScore.textContent) + 1;
+    }
+
+    // Update outcome
+    outcomeDiv.textContent = announceOutcome(outcome, choice, computer);
+
+    // Check for if there is a win or loss
+    // If there is a winner, we need to add a popup!
+    if (playerScore.textContent == 5) {
+        outcomeDiv.textContent = "Let's go!!! You won!!!";
+    } else if (enemyScore.textContent == 5) {
+        outcomeDiv.textContent = "I can't believe you lost...";
+    }
+
+
+}
+
+/* 
 function game () {
     let playerWins = 0;
     let computerWins = 0;
@@ -92,3 +132,4 @@ function game () {
     }
 
 }
+*/
