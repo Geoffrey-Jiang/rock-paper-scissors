@@ -72,9 +72,15 @@ function restartGame(e) {
     const outcome = document.querySelector('#score #outcome p');
     const restartButton = document.querySelector('#outcome button');
 
+    // Reset messages
     playerScore.textContent = 0;
     enemyScore.textContent = 0;
     outcome.textContent = "";
+    enemyScore.style.cssText = "font-weight: ; color: "
+    playerScore.style.cssText = "font-weight: ; color: "
+    outcome.style.cssText = "font-weight: ; color: "
+
+    // Remove restart button
     restartButton.remove();
 }
 
@@ -86,7 +92,8 @@ buttons.forEach((button) => {
 function round(e) {
     const playerScore = document.querySelector('#player .score');
     const enemyScore = document.querySelector('#enemy .score');
-    const outcomeDiv = document.querySelector('#score #outcome p');
+    const outcomeMsg = document.querySelector('#score #outcome p');
+    const outcomeCont = document.querySelector('#score #outcome');
     if (playerScore.textContent == 5 || enemyScore.textContent == 5) return;
     const button = e.target;
     // Button now holds DOM node of what button was pressed
@@ -106,40 +113,38 @@ function round(e) {
     }
 
     // Update outcome
-    outcomeDiv.textContent = announceOutcome(outcome, choice, computer);
+    outcomeMsg.textContent = announceOutcome(outcome, choice, computer);
 
+    let gameFinish = 0;
     // Check for if there is a win or loss
     // If there is a winner, we need to add a popup!
     if (playerScore.textContent == 5) {
-        outcomeDiv.textContent = "Let's go!!! You won!!!";
-        playerScore.style.cssText = "font-weight: bolder; color: green"
-        enemyScore.style.cssText = "font-weight: bolder; color: red"
-
-        const restartButton = document.createElement('button');
-        restartButton.textContent = "Restart Game";
-        restartButton.classList.add("restart");
-        outcomeDiv.appendChild(restartButton);
-
-        const restart = document.querySelector('.restart');
-        restart.addEventListener('click', restartGame);
-
+        outcomeMsg.textContent = "Let's go!!! You won!!!";
+        outcomeMsg.style.cssText = "font-weight: bolder; color: green";
+        playerScore.style.cssText = "font-weight: bolder; color: green";
+        enemyScore.style.cssText = "font-weight: bolder; color: red";
+        gameFinish = 1;
 
     } else if (enemyScore.textContent == 5) {
-        outcomeDiv.textContent = "I can't believe you lost...";
-        enemyScore.style.cssText = "font-weight: bolder; color: green"
-        playerScore.style.cssText = "font-weight: bolder; color: red"
+        outcomeMsg.textContent = "I can't believe you lost...";
+        outcomeMsg.style.cssText = "font-weight: bolder; color: red";
+        enemyScore.style.cssText = "font-weight: bolder; color: green";
+        playerScore.style.cssText = "font-weight: bolder; color: red";
+        gameFinish = 1;
+        
+    }
 
+    if (gameFinish) {
+        // Create restart button
         const restartButton = document.createElement('button');
         restartButton.textContent = "Restart Game";
         restartButton.classList.add("restart");
-        outcomeDiv.appendChild(restartButton);
+        outcomeCont.appendChild(restartButton);
 
+        // Create click event listener
         const restart = document.querySelector('.restart');
         restart.addEventListener('click', restartGame);
-
     }
-
-
 }
 
 /* 
